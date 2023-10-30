@@ -1,0 +1,23 @@
+
+create table tbCategoria(
+	idCategoria int primary key auto_increment,
+	categoria varchar(40)
+);
+
+
+insert into tbCategoria values
+	(null,'Brinquedo'),
+	(null,'Eletrônico'),
+	(null,'Ferramentas'),
+	(null,'Saúde');
+
+
+create table tbProduto(
+	idProduto  int primary key auto_increment,
+	produto varchar(50),
+	idCategoria int,
+	valor decimal,
+	descricao varchar(200),
+	quantidade int,
+	foreign key (idCategoria)references tbCategoria(idCategoria)
+);
