@@ -1,5 +1,4 @@
-package guia;
-
+package bd;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -79,4 +78,3 @@ public MenuPrincipal() {
 }
 
 }
-

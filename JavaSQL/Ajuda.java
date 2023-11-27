@@ -1,5 +1,4 @@
-package guia;
-
+package bd;
 import javax.swing.*;
 import java.awt.*;
 

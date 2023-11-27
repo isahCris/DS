@@ -1,5 +1,4 @@
-package guia;
-
+package bd;
 import java.sql.DriverManager;
 import java.sql.SQLException; 
 import java.sql.Connection;
@@ -19,15 +18,15 @@ public class Conexao {
 
 		           //jdbc - e o driver da sun responsavel pela conexao
 		           //estabelece uma conexao 
-		           con = DriverManager.getConnection("jdbc:mysql://localhost/bdGerenciamento","root","");
+		           con = DriverManager.getConnection("jdbc:mysql://localhost/dbGerenciamento","root","");
 
-		           System.out.println("Conex„o realizada com sucesso.");
+		           System.out.println("Conex√£o realizada com sucesso.");
 		        }
 		         catch(ClassNotFoundException ex){
-			        System.out.println("Driver JDBC-ODBC n„o encontrado"); 
+			        System.out.println("Driver JDBC-ODBC n√£o encontrado"); 
 			    }	         
 		         catch(SQLException ex){
-		           System.out.println("Problemas na conex„o com o banco de dados."); 
+		           System.out.println("Problemas na conex√£o com o banco de dados."); 
 		        }         
 		    }
 
@@ -37,7 +36,7 @@ public class Conexao {
 		           System.out.println("Conexao finalizada com sucesso");
 		         }
 		         catch(SQLException ex){
-		            System.out.println("Problemas ao encerrar a conex„o."); 
+		            System.out.println("Problemas ao encerrar a conex√£o."); 
 		         }
 		    }
 	    

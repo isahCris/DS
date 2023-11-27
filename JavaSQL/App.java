@@ -1,17 +1,17 @@
-package guia;
+package bd;
 
 //import java.sql.ResultSet;
 //import java.sql.SQLException;
 //import com.mysql.jdbc.Statement;
 
 public class App{
-   
-    public static void main(String[] args) {
-    	
-    	MenuPrincipal menu = new MenuPrincipal();
-    	
-        
-		/*controla e executa uma instruçao sql
+ 
+  public static void main(String[] args) {
+  	
+  	MenuPrincipal menu = new MenuPrincipal();
+  	
+      
+		/*controla e executa uma instruÃ§ao sql
 		Statement state;
 			
 		//conjunto de dados retornado por uma consulta sql
@@ -36,11 +36,9 @@ public class App{
 				}                         
 		}
 		catch(SQLException erro){
-			System.out.println("Nao foi possível realizar a consulta");
+			System.out.println("Nao foi possÃ­vel realizar a consulta");
 		}     
 			
 		conex.desconectar();*/
-    }    
+  }    
 }
-
-

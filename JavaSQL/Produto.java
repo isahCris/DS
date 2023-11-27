@@ -1,9 +1,12 @@
-package guia;
-
+package bd;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.*;
+
+import com.mysql.jdbc.Statement;
 
 public class Produto extends JDialog{
 	private static final long serialVersionUID = 1L;
@@ -17,9 +20,12 @@ public class Produto extends JDialog{
 	JButton btSalvar;
 	JTextField txtProduto;
 	JTextField txtValor;
-	JTextField txtIdCategoria;
+	JTextField txtidCategoria;
+	JComboBox cbidCategoria;
 	JTextField txtDesc;
 	JTextField txtQtd;
+	int idCategoria ;
+	String idCatgria;
 	
 	public Produto () {
 		this.setTitle("Gerenciador");
@@ -59,24 +65,63 @@ public class Produto extends JDialog{
 		txtValor.setBounds(120,200,180,30);
 		add(txtValor);
 		
-		
 		lbIdCategoria = new JLabel();
 		lbIdCategoria.setBounds(20,260,200,30);
 		lbIdCategoria.setForeground(new Color(8, 8, 8));
 		lbIdCategoria.setFont(new Font("Arial", Font.BOLD, 16));
-		lbIdCategoria.setText("Id Categoria: ");
+		lbIdCategoria.setText("Categoria: ");
 		add(lbIdCategoria);
 		
-		txtIdCategoria = new JTextField ();
-		txtIdCategoria.setBounds(120,260,180,30);
-		add(txtIdCategoria);
+		cbidCategoria = new JComboBox<>();
+		cbidCategoria.setBounds(120,260,150,30);
+		cbidCategoria.setBackground(Color.WHITE);
+		cbidCategoria.setForeground(Color.black);
+		add(cbidCategoria);
+		
+		
+		//idCtaegoria
+		Statement state;
+
+		ResultSet resultset;
+
+		
+		Conexao conex = new Conexao();     
+
+		String sql = "select categoria from tbcategoria order by categoria";	
+		
+
+		conex.conectar();      
+
+		cbidCategoria.addItem("Categoria");
+		
+		try {
+			
+			state = (Statement) Conexao.con.createStatement();
+			
+			resultset = state.executeQuery(sql);
+
+			while(resultset.next()) {
+				
+				cbidCategoria.addItem(resultset.getString(1));
+
+
+			}
+			
+			
+			
+		}catch(SQLException erro){
+			
+			System.out.println("Nao foi possivel  realizar a consulta");
+		}
+		
+		conex.desconectar();
 		
 		
 		lbDesc = new JLabel();
 		lbDesc.setBounds(20,320,200,30);
 		lbDesc.setForeground(new Color(8, 8, 8));
 		lbDesc.setFont(new Font("Arial", Font.BOLD, 16));
-		lbDesc.setText("Descrição: ");
+		lbDesc.setText("Descricao: ");
 		add(lbDesc);
 		
 		txtDesc = new JTextField ();
@@ -102,25 +147,109 @@ public class Produto extends JDialog{
 		btSalvar.setForeground(new Color(8, 8, 8));
 		add(btSalvar);
 		
-		btSalvar.addActionListener(new ActionListener() {
+		cbidCategoria.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent event) {
+						
+						idCatgria= (String) cbidCategoria.getSelectedItem();
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String nome, valor, id,desc,quantidade;
-				nome = txtProduto.getText();
-				valor = txtValor.getText();
-				id = txtIdCategoria.getText();
-				desc = txtDesc.getText();
-				quantidade = txtQtd.getText();
-				
-				JOptionPane.showMessageDialog(null, "Nome do produto: "+nome + "\n Valor:  "
-						+valor+"\n Id:  "+ id +"\n Descrição:  "+ desc 
-						+"\n Quantidade:  "+ quantidade);
-				
-				
-			}
+						
+						Statement state;
+
+						ResultSet resultset;
+						
+						Conexao con = new Conexao();     
+
+						String sql = "select idCategoria from tbcategoria where categoria = '"+idCatgria+"' ";	
+
+						con.conectar();      
+
+						
+						try {
+							
+							state = (Statement) Conexao.con.createStatement();
+							
+							resultset = state.executeQuery(sql);
+
+							if(resultset.next()) {
+								
+							String	categoria = (resultset.getString("idCategoria"));
+
+								 idCategoria = Integer.parseInt(categoria);
+								System.out.println(idCategoria);
+							}else {
+								System.out.println("categoria nï¿½o exixte no banco");
+							}
+							
+						}catch(SQLException erro){
+							
+							System.out.println("Nao foi possivel  realizar a consulta");
+						}
+						
+						con.desconectar();
+
+						
+
+					}
+
+					
+				}
+		);
+		
+		btSalvar.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent event) {
+
+						Statement state;
+
+						ResultSet resultset;
+						
+						Conexao con = new Conexao();     
+					//	
+						String sql = "insert into tbproduto values(null,'"+txtProduto.getText()+"','"+idCategoria+"','"+txtValor.getText()+"','"+txtDesc.getText()+"','"+txtQtd.getText()+"')";	
+
+						con.conectar();      
+
+						try {
+							
+							
+							state = (Statement) Conexao.con.createStatement();
+							
+							state.executeUpdate(sql);
+
+							JOptionPane.showMessageDialog(null, "Produto cadastrado!");
+
+							
+							
+						}catch(SQLException erro){
+							
+							System.out.println("Nao foi possivel  realizar a consulta");
+						}
+						
+						con.desconectar();
+
+						reset();
+					}
+
+					
+				}
+		);		
+		this.setLayout(null);				
+
+		}
+		
+		public void reset() {
 			
-		});
+			
+			txtProduto.setText("");
+			txtValor.setText("");
+			txtDesc.setText("");									
+			txtQtd.setText("");
+			
+				
+			
+			
+	
 		
 		this.setLayout(null);
 		this.setVisible(true);
