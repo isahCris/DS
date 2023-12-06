@@ -14,7 +14,7 @@ public class Gerenciamento extends JDialog {
 	
 	JLabel lbTitulo;
 	JButton btSalvar;
-	JButton btPesquisar;
+	JButton btAdicionar;
 	JButton btAlter;
 	JButton btRemove;
 	JLabel lbCategoria;
@@ -26,19 +26,19 @@ public class Gerenciamento extends JDialog {
 	String txtAlter = null;
 	
 	public Gerenciamento() {
-		this.setTitle("Gerenciador");
+		this.setTitle("Categoria");
 		this.setSize(800,600);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setModal(true);
 		
-		btPesquisar = new JButton ();
-		btPesquisar.setBounds(180,200,100,30);
-		btPesquisar.setText("+");
-		btPesquisar.setBackground(Color.WHITE);
-		btPesquisar.setForeground(Color.black);
-		btPesquisar.setFont(new Font("Arial", Font.BOLD,30));
-		add(btPesquisar);
+		btAdicionar = new JButton ();
+		btAdicionar.setBounds(180,200,150,30);
+		btAdicionar.setText("Adicionar");
+		btAdicionar.setFont(new Font("Arial", Font.BOLD, 16));
+		btAdicionar.setBackground(new Color(54, 95, 115));
+		btAdicionar.setForeground(new Color(8, 8, 8));
+		add(btAdicionar);
 		
 		lbTitulo = new JLabel();
 		lbTitulo.setBounds(250,10,400,75);
@@ -230,7 +230,9 @@ public class Gerenciamento extends JDialog {
 					
 					});
 			
-			btPesquisar.addActionListener(
+			//botão para adicionar categoria
+			
+			btAdicionar.addActionListener(
 					new ActionListener() {
 						public void actionPerformed(ActionEvent event) {
 							
@@ -250,6 +252,8 @@ public class Gerenciamento extends JDialog {
 					
 					});
 			
+			
+			//Sistema de update pro tbcategoria começa aqui
 			btAlter.addActionListener(
 					new ActionListener() {
 						public void actionPerformed(ActionEvent event) {
@@ -262,7 +266,7 @@ public class Gerenciamento extends JDialog {
 							Conexao con = new Conexao(); 
 							
 							String sql = "UPDATE `tbcategoria` SET `categoria`='"+txtCategoria.getText()+"' WHERE idCategoria = '"+idCategoria+"'";	
-							//update
+						
 							con.conectar();      
 
 							try {
@@ -272,7 +276,7 @@ public class Gerenciamento extends JDialog {
 								state.executeUpdate(sql);
 
 								JOptionPane.showMessageDialog(null, "Categoria Alterada com sucesso!");
-							//	System.out.println(idCate);
+							
 
 								
 							}catch(SQLException erro){
@@ -285,6 +289,8 @@ public class Gerenciamento extends JDialog {
 						}
 					
 					});
+			
+			//Sistema de delete pro tbcategoria começa aqui
 			
 			btRemove.addActionListener(
 					new ActionListener() {
@@ -322,9 +328,12 @@ public class Gerenciamento extends JDialog {
 										JOptionPane.showMessageDialog(null, "Categoria Deletada com sucesso!");
 										
 									}else {
+										
+										//caso ele tiver ligado a produtos
+										
 									
-								    	int delet = JOptionPane.showConfirmDialog(null,"Nao foi possivel excluir. A categoria atualmente esta sendo ligada ah "+resultset.getString(1)+" "
-								    										+ "produtos. Excluir categoria e produtos interligados?","Delete", JOptionPane.YES_NO_CANCEL_OPTION);
+								    	int delet = JOptionPane.showConfirmDialog(null,"Categoria não pode ser excluida, pois está ligada a "+resultset.getString(1)+" "
+								    										+ "produtos. continuar a exclusão mesmo assim?","Delete", JOptionPane.YES_NO_CANCEL_OPTION);
 	
 										if(delet==0) {
 											

@@ -19,15 +19,15 @@ public MenuPrincipal() {
 	JMenuItem sair = new JMenuItem("Sair");
 	JMenuItem produto = new JMenuItem("Produto");
 	JMenuItem cadastro = new JMenuItem("Categoria");
-	JMenuItem pd2 = new JMenuItem("Produto");
-	JMenuItem vizu = new JMenuItem ("Categorias");
+	JMenuItem vprod = new JMenuItem("Produto");
+	JMenuItem vcate = new JMenuItem ("Categorias");
 	JMenuItem sobre = new JMenuItem ("Sobre");
 	
 	arq.add(sair);
 	cads.add(cadastro);
 	cads.add(produto);
-	ver.add(vizu);
-	ver.add(pd2);
+	ver.add(vprod);
+	ver.add(vcate);
 	aju.add(sobre);
 	
 	JMenuBar bar = new JMenuBar();
@@ -72,6 +72,7 @@ public MenuPrincipal() {
  	             }
  	         }
  	       );
+	
 	
 	this.setVisible(true);
 	

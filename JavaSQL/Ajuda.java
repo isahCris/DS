@@ -14,7 +14,7 @@ public class Ajuda extends JDialog{
 		this.setModal(true);
 
 		
-		ImageIcon imagem = new ImageIcon(getClass().getResource("./adm1.png"));
+		ImageIcon imagem = new ImageIcon(getClass().getResource("adm1.png"));
 		JLabel moldura = new JLabel("", imagem, JLabel.CENTER);
 		moldura.setBounds(0,55,250,300);
 		add(moldura);

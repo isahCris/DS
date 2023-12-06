@@ -147,6 +147,7 @@ public class Produto extends JDialog{
 		btSalvar.setForeground(new Color(8, 8, 8));
 		add(btSalvar);
 		
+		// acao do idcategoria
 		cbidCategoria.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent event) {
@@ -178,7 +179,7 @@ public class Produto extends JDialog{
 								 idCategoria = Integer.parseInt(categoria);
 								System.out.println(idCategoria);
 							}else {
-								System.out.println("categoria n�o exixte no banco");
+								System.out.println("categoria nao exixte no banco");
 							}
 							
 						}catch(SQLException erro){
